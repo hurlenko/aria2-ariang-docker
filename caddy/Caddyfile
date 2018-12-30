@@ -4,12 +4,4 @@
   gzip
   log stdout
   errors stdout
-
-
 }
-
-{$DOMAIN}/files {
-  filemanager / /data
-}
-
-

@@ -5,13 +5,7 @@ LABEL AUTHOR=Junv<wahyd4@gmail.com>
 WORKDIR /root
 
 ENV RPC_SECRET=Hello
-ENV ENABLE_AUTH=false
 ENV DOMAIN=0.0.0.0:80
-ENV ARIA2_USER=user
-ENV ARIA2_PWD=password
-
-# For build image in local quickly in China
-# RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 RUN apk update && apk add wget bash curl openrc gnupg screen aria2 tar --no-cache
 
@@ -31,8 +25,6 @@ RUN mkdir /usr/local/www/aria2/Download && cd /usr/local/www/aria2 \
  && chmod -R 755 /usr/local/www/aria2 \
  && chmod +x /root/aria2c.sh
 
-#The folder to store ssl keys
-VOLUME /root/conf/key
 # User downloaded files
 VOLUME /data
 
