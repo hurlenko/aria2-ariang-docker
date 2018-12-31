@@ -5,10 +5,10 @@ userid=0 # 65534 - nobody, 0 - root
 groupid=0
 
 if [ -n "$RPC_SECRET" ]; then
-    echo "rpc-secret=${RPC_SECRET}" >> $conf_path/aria2.conf
+    printf '\nrpc-secret=%s\n' ${RPC_SECRET} >> $conf_path/aria2.conf
 fi
 
-if [[ -n "$PUID" && -n  "$PGID"]]; then
+if [[ -n "$PUID" && -n  "$PGID" ]]; then
     userid=$PUID
     groupid=$PGID
 fi
