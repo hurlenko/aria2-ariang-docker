@@ -1,8 +1,7 @@
 # [Aria2](https://github.com/aria2/aria2) + [AriaNg](https://github.com/mayswind/AriaNg) inside a docker container
 
-[![Badge](https://images.microbadger.com/badges/image/wahyd4/aria2-ui.svg)](https://microbadger.com/images/wahyd4/aria2-ui "kek")
+[![badge](https://images.microbadger.com/badges/image/hurlenko/aria2-ariang.svg)](https://microbadger.com/images/hurlenko/aria2-ariang "Get your own image badge on microbadger.com")
 
-- [Features](#features)
 - [How to run](#how-to-run)
   - [Simple Usage](#simple-usage)
   - [Full Usage](#full-usage)
@@ -15,17 +14,12 @@
 
 ![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/desktop.png)
 
-## Features
-
-- Aria2
-- AriaNg
-
 ## How to run
 
 ### Simple Usage
 
 ```bash
-docker run -d --name aria2-ui -p 80:80 -p 6800:6800 hurlenko/aria2-ui
+docker run -d --name aria2-ui -p 80:80 -p 6800:6800 hurlenko/aria2-ariang
 ```
 
 ### Full Usage
@@ -40,7 +34,7 @@ docker run -d \
     -e PUID=1000 \                    # replace 1000 with the userid who will own all downloaded files and configuration files.
     -e PGID=1000 \                    # replace 1000 with the groupid who will own all downloaded files and configuration files.
     -e RPC_SECRET=NOBODYKNOWSME \     # replace NOBODYKNOWSME with the secret for access Aria2 RPC services.
-    hurlenko/aria2-ui
+    hurlenko/aria2-ariang
 ```
 
 > Note: defaut rpc secret is `secret`. You can also remove secret by overriding `RPC_SECRET` with empty string when running your container:
@@ -66,13 +60,14 @@ Now head to <http://yourip> open settings, enter your secret and you're good to 
 ### How to build
 
 ```bash
-cd caddy
+git clone https://github.com/hurlenko/aria2-ariang-docker
+cd aria2-ariang-docker
 docker build -t aria2-ui .
 ```
 
 ## Docker Hub
 
-  <https://hub.docker.com/r/hurlenko/aria2-ui/>
+  <https://hub.docker.com/r/hurlenko/aria2-ariang/>
 
 ## Usage it in Docker compose
 
