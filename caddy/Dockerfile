@@ -1,35 +1,40 @@
-FROM alpine:edge
+FROM alpine
 
 LABEL AUTHOR=Junv<wahyd4@gmail.com>
 
-WORKDIR /root
+ARG ARIANG_VERSION=1.0.0
 
-ENV RPC_SECRET=Hello
+ENV RPC_SECRET=secret
 ENV DOMAIN=0.0.0.0:80
+ENV PUID=0
+ENV PGID=0
 
-RUN apk update && apk add wget bash curl openrc gnupg screen aria2 tar --no-cache
+RUN apk update \
+    && apk add --no-cache --update caddy curl aria2 su-exec
 
-RUN curl https://getcaddy.com | bash -s personal http.filemanager
+# AriaNG
+WORKDIR /usr/local/www/aria2
 
-ADD conf /root/conf
-COPY aria2c.sh /root
+RUN curl -sL https://github.com/mayswind/AriaNg/releases/download/${ARIANG_VERSION}/AriaNg-${ARIANG_VERSION}.zip \
+    --output ariang.zip \
+    && unzip ariang.zip \
+    && rm ariang.zip \
+    && chmod -R 755 ./
 
-COPY Caddyfile SecureCaddyfile /usr/local/caddy/
+WORKDIR /aria2
 
-RUN mkdir -p /usr/local/www && mkdir -p /usr/local/www/aria2
+COPY conf ./conf
+COPY aria2c.sh ./
+COPY Caddyfile /usr/local/caddy/
 
-#AriaNg
-RUN mkdir /usr/local/www/aria2/Download && cd /usr/local/www/aria2 \
- && chmod +rw /root/conf/aria2.session \
- && wget -N --no-check-certificate https://github.com/mayswind/AriaNg/releases/download/1.0.0/AriaNg-1.0.0.zip && unzip AriaNg-1.0.0.zip && rm -rf AriaNg-1.0.0.zip \
- && chmod -R 755 /usr/local/www/aria2 \
- && chmod +x /root/aria2c.sh
+RUN touch ./conf/aria2.session \
+    && chmod +x aria2c.sh
 
 # User downloaded files
-VOLUME /data
+VOLUME /aria2/data
+VOLUME /aria2/conf
 
-EXPOSE 6800 80 443
+EXPOSE 6800
+EXPOSE 80
 
-CMD ["/bin/sh", "/root/aria2c.sh" ]
-
-
+CMD ["/bin/sh", "./aria2c.sh" ]
