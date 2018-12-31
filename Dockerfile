@@ -1,7 +1,5 @@
 FROM alpine
 
-LABEL AUTHOR=Junv<wahyd4@gmail.com>
-
 ARG ARIANG_VERSION=1.0.0
 
 ENV RPC_SECRET=secret
@@ -23,12 +21,11 @@ RUN curl -sL https://github.com/mayswind/AriaNg/releases/download/${ARIANG_VERSI
 
 WORKDIR /aria2
 
-COPY conf ./conf
+COPY conf ./conf-copy
 COPY aria2c.sh ./
 COPY Caddyfile /usr/local/caddy/
 
-RUN touch ./conf/aria2.session \
-    && chmod +x aria2c.sh
+RUN chmod +x aria2c.sh
 
 # User downloaded files
 VOLUME /aria2/data

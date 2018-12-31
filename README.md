@@ -1,4 +1,4 @@
-# [Aria2](https://github.com/aria2/aria2) + [AriaNg](https://github.com/mayswind/AriaNg) inside a docker container
+# [Aria2](https://github.com/aria2/aria2) + [AriaNg webui](https://github.com/mayswind/AriaNg) inside a docker container
 
 [![badge](https://images.microbadger.com/badges/image/hurlenko/aria2-ariang.svg)](https://microbadger.com/images/hurlenko/aria2-ariang "Get your own image badge on microbadger.com")
 
@@ -71,4 +71,4 @@ docker build -t aria2-ui .
 
 ## Usage it in Docker compose
 
-  Please refer <https://github.com/wahyd4/aria2-ariang-x-docker-compose>
+  Todo
