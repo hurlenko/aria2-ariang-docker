@@ -105,8 +105,6 @@ docker-compose up
 You can use this nginx config:
 
 ```nginx
-listen 6800 ssl;
-
 location / {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
@@ -115,7 +113,7 @@ location / {
     proxy_connect_timeout      240;
     proxy_send_timeout         240;
     proxy_read_timeout         240;
-    proxy_pass http://127.0.0.1:5002;
+    proxy_pass http://127.0.0.1:80;
 }
 
 location /jsonrpc {
@@ -126,7 +124,7 @@ location /jsonrpc {
     proxy_connect_timeout      240;
     proxy_send_timeout         240;
     proxy_read_timeout         240;
-    proxy_pass http://127.0.0.1:5003;
+    proxy_pass http://127.0.0.1:6800;
 }
 ```
 
