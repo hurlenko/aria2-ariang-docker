@@ -1,5 +1,12 @@
-{$DOMAIN} {
-  root /usr/local/www/aria2
+{$DOMAINNAME}:{$DOMAINPORT} {
+
+  proxy /jsonrpc localhost:6800 {
+    transparent
+    websocket
+  }
+
+  root /usr/local/www/ariang
   timeouts none
   gzip
+  errors stdout
 }
