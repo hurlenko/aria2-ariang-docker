@@ -2,20 +2,69 @@ name: Docker image build
 
 on:
   schedule:
-    - cron:  '* * * * *'
+    - cron:  '0 0 * * *'
 
 jobs:
   build_image:
     name: Build docker image
     runs-on: ubuntu-18.04
     steps:
+      - uses: actions/checkout@master
       - name: Check new github release
         run: |
+          sudo apt-get update && sudo apt-get install docker -y
           pip3 install requests
           echo ::set-output name=latest_version::"$(python3 check_version.py)"
         id: ariang_release
 
-      - name: Build image
+      - name: Uninstall Docker EE
+        if: steps.ariang_release.outputs.latest_version != ''
         run: |
-          docker ps -a
-          echo ${{ steps.fruit.outputs.action_fruit }}
+          dpkg -l | grep -i docker
+          sudo apt-get remove docker -y
+          sudo apt-get autoremove -y --purge docker 
+
+      - name: Install Docker CE
+        if: steps.ariang_release.outputs.latest_version != ''
+        run: |
+          sudo apt-get update
+          sudo apt-get install \
+              apt-transport-https \
+              ca-certificates \
+              curl \
+              gnupg-agent \
+              software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo apt-key fingerprint 0EBFCD88
+          sudo add-apt-repository \
+            "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+            $(lsb_release -cs) \
+            stable"
+          sudo apt-get update
+          sudo apt-get install docker-ce docker-ce-cli containerd.io
+          apt-cache madison docker-ce
+
+      - name: Setup Docker buildx
+        if: steps.ariang_release.outputs.latest_version != ''
+        run: |
+          mkdir ~/.docker
+          echo $'{\n    "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json;
+          sudo service docker restart
+          docker version
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker buildx create --use --name mult
+          docker buildx inspect --bootstrap
+          docker buildx ls
+
+      - name: Build and push image
+        if: steps.ariang_release.outputs.latest_version != ''
+        env:
+          ARIANG_VERSION: ${{ steps.ariang_release.outputs.latest_version }}
+          IMAGE: hurlenko/aria2-ariang
+          USERNAME: hurlenko
+          TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          echo $TOKEN | docker login --username $USERNAME --password-stdin
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg ARIANG_VERSION=$ARIANG_VERSION -t $IMAGE:$ARIANG_VERSION .
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg ARIANG_VERSION=$ARIANG_VERSION -t $IMAGE:latest .
+          # todo https://github.com/elgohr/Publish-Docker-Github-Action
