@@ -1,0 +1,21 @@
+name: Docker image build
+
+on:
+  schedule:
+    - cron:  '* * * * *'
+
+jobs:
+  build_image:
+    name: Build docker image
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check new github release
+        run: |
+          pip3 install requests
+          echo ::set-output name=latest_version::"$(python3 check_version.py)"
+        id: ariang_release
+
+      - name: Build image
+        run: |
+          docker ps -a
+          echo ${{ steps.fruit.outputs.action_fruit }}
