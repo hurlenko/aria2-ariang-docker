@@ -1,9 +1,8 @@
+#!/bin/sh
+
 conf_path=/aria2/conf
 conf_copy_path=/aria2/conf-copy
 data_path=/aria2/data
-
-userid=0 # 65534 - nobody, 0 - root
-groupid=0
 
 if [ ! -f $conf_path/aria2.conf ]; then
 	cp $conf_copy_path/aria2.conf $conf_path/aria2.conf
@@ -12,9 +11,18 @@ if [ ! -f $conf_path/aria2.conf ]; then
     fi
 fi
 
-touch ./conf/aria2.session
+touch $conf_path/aria2.session
+
+if [[ -n "$DOMAINPORT" ]]; then
+    echo "Changing rpc request port to $DOMAINPORT"
+    sed -i "s/6800/${DOMAINPORT}/g" /usr/local/www/ariang/js/aria-ng*.js
+fi
+
+userid="$(id -u)" # 65534 - nobody, 0 - root
+groupid="$(id -g)"
 
 if [[ -n "$PUID" && -n  "$PGID" ]]; then
+    echo "Running as user $PUID:$PGID"
     userid=$PUID
     groupid=$PGID
 fi
