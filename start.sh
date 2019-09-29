@@ -13,9 +13,9 @@ fi
 
 touch $conf_path/aria2.session
 
-if [[ -n "$DOMAINPORT" ]]; then
-    echo "Changing rpc request port to $DOMAINPORT"
-    sed -i "s/6800/${DOMAINPORT}/g" /usr/local/www/ariang/js/aria-ng*.js
+if [[ -n "$ARIA2RPCPORT" ]]; then
+    echo "Changing rpc request port to $ARIA2RPCPORT"
+    sed -i "s/6800/${ARIA2RPCPORT}/g" /usr/local/www/ariang/js/aria-ng*.js
 fi
 
 userid="$(id -u)" # 65534 - nobody, 0 - root

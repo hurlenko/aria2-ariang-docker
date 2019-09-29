@@ -60,11 +60,26 @@ jobs:
         if: steps.ariang_release.outputs.latest_version != ''
         env:
           ARIANG_VERSION: ${{ steps.ariang_release.outputs.latest_version }}
-          IMAGE: hurlenko/aria2-ariang
-          USERNAME: hurlenko
-          TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          DOCKERHUB_REPOSITORY: hurlenko/aria2-ariang
+          DOCKERHUB_USERNAME: hurlenko
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          echo $TOKEN | docker login --username $USERNAME --password-stdin
-          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg ARIANG_VERSION=$ARIANG_VERSION -t $IMAGE:$ARIANG_VERSION .
-          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg ARIANG_VERSION=$ARIANG_VERSION -t $IMAGE:latest .
-          # todo https://github.com/elgohr/Publish-Docker-Github-Action
+          echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
+          docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg ARIANG_VERSION=$ARIANG_VERSION -t $DOCKERHUB_REPOSITORY:$ARIANG_VERSION .
+          docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 --build-arg ARIANG_VERSION=$ARIANG_VERSION -t $DOCKERHUB_REPOSITORY:latest .
+
+      - name: Update DockerHub Description
+        if: steps.ariang_release.outputs.latest_version != ''
+        uses: peter-evans/dockerhub-description@v2.0.0
+        env:
+          DOCKERHUB_USERNAME: hurlenko
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+          DOCKERHUB_REPOSITORY: hurlenko/aria2-ariang
+ 
+      - name: Create new Github release
+        if: steps.ariang_release.outputs.latest_version != ''
+        uses: meeDamian/github-release@1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.ariang_release.outputs.latest_version }}
+          name: Update to AriaNg ${{ steps.ariang_release.outputs.latest_version }}

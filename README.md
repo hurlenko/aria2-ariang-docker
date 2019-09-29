@@ -49,8 +49,6 @@ Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/late
 
 ## 📙 Usage
 
-> After running AriaNg go to `AriaNg Settings` > `Rpc` tab > `Aria2 RPC Address` field, and change the default rpc port `6800` to whatever you need
-
 ### Docker
 
 ```bash
@@ -67,8 +65,8 @@ docker run -d \
     -v /CONFIG_DIR:/aria2/conf \
     -e PUID=1000 \
     -e PGID=1000 \
-    -e DOMAINPORT=443 \
-    -e DOMAINNAME=mysite.com \
+    -e ARIA2RPCPORT=443 \
+    -e DOMAIN=https://ariang.com \
     -e RPC_SECRET=NOBODYKNOWSME \
     hurlenko/aria2-ariang
 ```
@@ -84,7 +82,7 @@ services:
   ariang:
     image: hurlenko/aria2-ariang
     ports:
-      - 8080:8080
+      - 443:8080
     volumes:
       - /DOWNLOAD_DIR:/aria2/data
       - /CONFIG_DIR:/aria2/conf
@@ -92,8 +90,8 @@ services:
       - PUID=1000
       - PGID=1000
       - RPC_SECRET=secret
-      - DOMAINNAME=0.0.0.0
-      - DOMAINPORT=8080
+      - DOMAIN=0.0.0.0:8080
+      - ARIA2RPCPORT=443
     restart: always
 ```
 
@@ -125,8 +123,9 @@ location / {
 - `PUID` - Userid who will own all downloaded files and configuration files (Default `0` which is root)
 - `PGID` - Groupid who will own all downloaded files and configuration files (Default `0` which is root)
 - `RPC_SECRET` - The Aria2 RPC secret token (Default: not set)
-- `DOMAINNAME` - The domain you'd like to bind to (Default: `0.0.0.0`)
-- `DOMAINPORT` - The port you'd like to bind to (Default: `8080`)
+- `DOMAIN` - The domain you'd like to bind to (Default: `0.0.0.0:8080`)
+- `ARIA2RPCPORT` - The port that will be used for rpc calls to aria2. Usually you want to set it to the port your website is running on. For example if your AriaNg instance is accessible on `https://ariang.mysite.com` you need to set `ARIA2RPCPORT` to `443` (default https port), otherwise AriaNg won't be able to access aria2 rpc running on the default port `8080`. You can set the port in the web ui by going to `AriaNg Settings` > `Rpc` tab > `Aria2 RPC Address` field, and changing the default rpc port to whatever you need, but this has to be done per browser.
+
 
 ### Supported volumes
 
