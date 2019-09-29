@@ -5,8 +5,8 @@
 # [Aria2](https://github.com/aria2/aria2) + [AriaNg webui](https://github.com/mayswind/AriaNg) inside a [docker container](https://hub.docker.com/r/hurlenko/aria2-ariang)
 
 [![Latest Github release](https://img.shields.io/github/release/hurlenko/aria2-ariang-docker.svg)](https://github.com/hurlenko/aria2-ariang-docker/releases/latest)
-[![badge](https://images.microbadger.com/badges/image/hurlenko/aria2-ariang.svg)](https://microbadger.com/images/hurlenko/aria2-ariang "Get your own image badge on microbadger.com")
-[![Docker Pulls](https://img.shields.io/docker/pulls/hurlenko/aria2-ariang.svg)](https://hub.docker.com/r/wahyd4/aria2-ui/)
+[![Image size](https://images.microbadger.com/badges/image/hurlenko/aria2-ariang.svg)](https://microbadger.com/images/hurlenko/aria2-ariang)
+[![Docker Pulls](https://img.shields.io/docker/pulls/hurlenko/aria2-ariang.svg)](https://hub.docker.com/r/hurlenko/aria2-ariang/)
 
 ## Introduction
 
