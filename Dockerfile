@@ -2,8 +2,8 @@ FROM alpine
 
 ARG ARIANG_VERSION=1.0.0
 
-ENV DOMAINNAME=0.0.0.0
-ENV DOMAINPORT=8080
+ENV DOMAIN=0.0.0.0:8080
+ENV ARIA2RPCPORT=8080
 
 RUN apk update \
     && apk add --no-cache --update caddy aria2 su-exec
