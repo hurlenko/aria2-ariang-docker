@@ -1,9 +1,24 @@
 FROM alpine
 
-ARG ARIANG_VERSION=1.0.0
+ARG ARIANG_VERSION
+ARG BUILD_DATE
+ARG VCS_REF
 
 ENV DOMAIN=0.0.0.0:8080
 ENV ARIA2RPCPORT=8080
+
+LABEL maintainer="hurlenko" \
+    org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.name="aria2-ariang" \
+    org.label-schema.description="Aria2 downloader and AriaNg webui Docker image based on Alpine Linux" \
+    org.label-schema.version=$VERSION \
+    org.label-schema.url="https://github.com/hurlenko/aria2-ariang-docker" \
+    org.label-schema.license="MIT" \
+    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.vcs-url="https://github.com/hurlenko/aria2-ariang-dockr" \
+    org.label-schema.vcs-type="Git" \
+    org.label-schema.vendor="hurlenko" \
+    org.label-schema.schema-version="1.0"
 
 RUN apk update \
     && apk add --no-cache --update caddy aria2 su-exec
@@ -30,11 +45,3 @@ EXPOSE 8080
 
 ENTRYPOINT ["/bin/sh"]
 CMD ["./start.sh"]
-
-LABEL org.label-schema.docker.dockerfile="/Dockerfile" \
-    org.label-schema.license="MIT" \
-    org.label-schema.name="ariang" \
-    org.label-schema.vendor="hurlenko" \
-    org.label-schema.url="https://github.com/hurlenko/aria2-ariang-docker/" \
-    org.label-schema.vcs-url="https://github.com/hurlenko/aria2-ariang-docker.git" \
-    org.label-schema.vcs-type="Git"
