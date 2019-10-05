@@ -54,7 +54,7 @@ jobs:
       - name: Build and push image
         if: steps.releases.outputs.current != steps.releases.outputs.target
         env:
-          ARIANG_VERSION: ${{ steps.releases.outputs.current }}
+          ARIANG_VERSION: ${{ steps.releases.outputs.target }}
           DOCKERHUB_REPOSITORY: hurlenko/aria2-ariang
           DOCKERHUB_USERNAME: hurlenko
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
