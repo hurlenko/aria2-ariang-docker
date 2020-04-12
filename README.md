@@ -15,22 +15,18 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
 
 ## 🚩 Table of Contents
 
-- [Aria2 + [AriaNg webui](https://github.com/mayswind/AriaNg) inside a [docker container](https://hub.docker.com/r/hurlenko/aria2-ariang)](#aria2--ariang-webui-inside-a-docker-container)
-  - [Introduction](#introduction)
-  - [🚩 Table of Contents](#%f0%9f%9a%a9-table-of-contents)
-  - [🖼️ Screenshots](#%f0%9f%96%bc%ef%b8%8f-screenshots)
-    - [Desktop](#desktop)
-    - [Mobile device](#mobile-device)
-  - [🌐 Demo website](#%f0%9f%8c%90-demo-website)
-  - [🎨 Features](#%f0%9f%8e%a8-features)
-  - [📙 Usage](#%f0%9f%93%99-usage)
-    - [Docker](#docker)
-    - [docker-compose](#docker-compose)
-    - [Running behind Nginx proxy](#running-behind-nginx-proxy)
-    - [Supported environment variables](#supported-environment-variables)
-    - [Supported volumes](#supported-volumes)
-    - [User / Group identifiers](#user--group-identifiers)
-  - [🔨 Building](#%f0%9f%94%a8-building)
+- [Screenshots](#-screenshots)
+- [Demo website](#-demo-website)
+- [Features](#-features)
+- [Usage](#-usage)
+  - [Docker](#docker)
+  - [docker-compose](#docker-compose)
+  - [Nginx](#running-behind-nginx-proxy)
+  - [Ports desription](#ports-description)
+  - [Supported environment variables](#supported-environment-variables)
+  - [Supported volumes](#supported-volumes)
+  - [User / Group identifiers](#user-/-group-identifiers)
+- [Building](#-building)
 
 ## 🖼️ Screenshots
 
