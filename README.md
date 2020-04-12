@@ -13,22 +13,21 @@
 
 AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) easier to use. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
 
-## 🚩 Table of Contents
+## Table of Contents
 
-- [Screenshots](#-screenshots)
-- [Demo website](#-demo-website)
-- [Features](#-features)
-- [Usage](#-usage)
+- [Screenshots](#screenshots)
+- [Demo website](#demo-website)
+- [Features](#features)
+- [Usage](#usage)
   - [Docker](#docker)
   - [docker-compose](#docker-compose)
   - [Nginx](#running-behind-nginx-proxy)
-  - [Ports desription](#ports-description)
   - [Supported environment variables](#supported-environment-variables)
   - [Supported volumes](#supported-volumes)
   - [User / Group identifiers](#user-/-group-identifiers)
-- [Building](#-building)
+- [Building](#building)
 
-## 🖼️ Screenshots
+## Screenshots
 
 ### Desktop
 
@@ -38,17 +37,17 @@ AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) e
 
 ![AriaNg](https://raw.githubusercontent.com/mayswind/AriaNg-WebSite/master/screenshots/mobile.png)
 
-## 🌐 Demo website
+## Demo website
 
 Please visit [http://ariang.mayswind.net/latest](http://ariang.mayswind.net/latest)
 
-## 🎨 Features
+## Features
 
 - Confgurable via environment variables
 - Uses the PUID and PGID evironment variables to map the container's internal user to a user on the host machine
 - Supports multiple architectures, tested on Ubuntu 18.04 (`amd64`), Rock64 🍍 (`arm64`) and Raspberry Pi 🍓 (`arm32`)
 
-## 📙 Usage
+## Usage
 
 ### Docker
 
@@ -131,7 +130,6 @@ location / {
 - `DOMAIN` - The domain you'd like to bind to (Default: `0.0.0.0:8080`)
 - `ARIA2RPCPORT` - The port that will be used for rpc calls to aria2. Usually you want to set it to the port your website is running on. For example if your AriaNg instance is accessible on `https://ariang.mysite.com` you need to set `ARIA2RPCPORT` to `443` (default https port), otherwise AriaNg won't be able to access aria2 rpc running on the default port `8080`. You can set the port in the web ui by going to `AriaNg Settings` > `Rpc` tab > `Aria2 RPC Address` field, and changing the default rpc port to whatever you need, but this has to be done per browser.
 
-
 ### Supported volumes
 
 - `/aria2/data` The folder of all Aria2 downloaded files
@@ -150,7 +148,7 @@ id username
     uid=1001(dockeruser) gid=1001(dockergroup) groups=1001(dockergroup)
 ```
 
-## 🔨 Building
+## Building
 
 ```bash
 git clone https://github.com/hurlenko/aria2-ariang-docker
