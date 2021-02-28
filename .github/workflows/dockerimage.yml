@@ -1,8 +1,9 @@
 name: Docker image build
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron:  '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   build_image:
@@ -70,7 +71,7 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
           DOCKERHUB_REPOSITORY: ${{ secrets. DOCKERHUB_REPOSITORY }}
- 
+
       - name: Create new Github release
         if: steps.releases.outputs.current != steps.releases.outputs.target
         uses: meeDamian/github-release@1.0
