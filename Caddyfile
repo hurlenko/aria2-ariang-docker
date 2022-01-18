@@ -1,5 +1,9 @@
 {$DOMAIN} {
 
+  proxy /rpc localhost:6800 {
+    transparent
+    websocket
+  }
   proxy /jsonrpc localhost:6800 {
     transparent
     websocket
