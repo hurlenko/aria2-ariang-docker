@@ -1,10 +1,9 @@
-FROM alpine:3.12
+FROM alpine:3.16.0
 
 ARG ARIANG_VERSION
 ARG BUILD_DATE
 ARG VCS_REF
 
-ENV DOMAIN=0.0.0.0:8080
 ENV ARIA2RPCPORT=8080
 
 LABEL maintainer="hurlenko" \
@@ -21,7 +20,7 @@ LABEL maintainer="hurlenko" \
     org.label-schema.schema-version="1.0"
 
 RUN apk update \
-    && apk add --no-cache --update caddy aria2 su-exec
+    && apk add --no-cache --update caddy aria2 su-exec curl
 
 # AriaNG
 WORKDIR /usr/local/www/ariang

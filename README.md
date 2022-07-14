@@ -9,6 +9,9 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/hurlenko/aria2-ariang.svg)](https://hub.docker.com/r/hurlenko/aria2-ariang/)
 [![Docker Stars](https://img.shields.io/docker/stars/hurlenko/aria2-ariang.svg)](https://hub.docker.com/r/hurlenko/aria2-ariang/)
 
+- **[Github](https://github.com/hurlenko/aria2-ariang-docker)**
+- **[Dockerhub](https://hub.docker.com/r/hurlenko/aria2-ariang/)**
+
 ## Introduction
 
 AriaNg is a modern web frontend making [aria2](https://github.com/aria2/aria2) easier to use. AriaNg is written in pure html & javascript, thus it does not need any compilers or runtime environment. You can just put AriaNg in your web server and open it in your browser. AriaNg uses responsive layout, and supports any desktop or mobile devices.
@@ -66,7 +69,6 @@ docker run -d \
     -e PUID=1000 \
     -e PGID=1000 \
     -e ARIA2RPCPORT=443 \
-    -e DOMAIN=https://ariang.com \
     -e RPC_SECRET=NOBODYKNOWSME \
     hurlenko/aria2-ariang
 ```
@@ -90,7 +92,6 @@ services:
       - PUID=1000
       - PGID=1000
       - RPC_SECRET=secret
-      - DOMAIN=0.0.0.0:8080
       - ARIA2RPCPORT=443
     restart: always
 ```
@@ -127,8 +128,12 @@ location / {
 - `PUID` - Userid who will own all downloaded files and configuration files (Default `0` which is root)
 - `PGID` - Groupid who will own all downloaded files and configuration files (Default `0` which is root)
 - `RPC_SECRET` - The Aria2 RPC secret token (Default: not set)
-- `DOMAIN` - The domain you'd like to bind to (Default: `0.0.0.0:8080`)
+- `EMBED_RPC_SECRET` - INSECURE: embeds `RPC_SECRET` into web ui js code. This allows you to skip entering the secret but everyone who has access to the webui will be able to see it. Only use this with some sort of authentication (e.g. basic auth)
+- `BASIC_AUTH_USERNAME` - username for basic auth
+- `BASIC_AUTH_PASSWORD` - password for basic auth
 - `ARIA2RPCPORT` - The port that will be used for rpc calls to aria2. Usually you want to set it to the port your website is running on. For example if your AriaNg instance is accessible on `https://ariang.mysite.com` you need to set `ARIA2RPCPORT` to `443` (default https port), otherwise AriaNg won't be able to access aria2 rpc running on the default port `8080`. You can set the port in the web ui by going to `AriaNg Settings` > `Rpc` tab > `Aria2 RPC Address` field, and changing the default rpc port to whatever you need, but this has to be done per browser.
+
+> Note, both `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` must be set in order to enable basic authentication.
 
 ### Supported volumes
 
