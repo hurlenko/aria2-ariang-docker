@@ -43,3 +43,4 @@ VOLUME /aria2/conf
 EXPOSE 8080
 
 ENTRYPOINT ["./start.sh"]
+CMD ["--conf-path=/aria2/conf/aria2.conf"]
