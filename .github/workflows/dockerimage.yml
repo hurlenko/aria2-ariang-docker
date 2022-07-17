@@ -56,7 +56,7 @@ jobs:
         if: steps.releases.outputs.current != steps.releases.outputs.target
         env:
           ARIANG_VERSION: ${{ steps.releases.outputs.target }}
-          DOCKERHUB_REPOSITORY: ${{ secrets. DOCKERHUB_REPOSITORY }}
+          DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
@@ -70,7 +70,7 @@ jobs:
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-          DOCKERHUB_REPOSITORY: ${{ secrets. DOCKERHUB_REPOSITORY }}
+          DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
 
       - name: Create new Github release
         if: steps.releases.outputs.current != steps.releases.outputs.target

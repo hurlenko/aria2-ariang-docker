@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 conf_path=/aria2/conf
 conf_copy_path=/aria2/conf-copy
@@ -49,4 +49,4 @@ chown -R "$userid":"$groupid" $conf_path
 chown -R "$userid":"$groupid" $data_path
 
 caddy run -config /usr/local/caddy/Caddyfile -adapter=caddyfile &
-su-exec "$userid":"$groupid" aria2c --conf-path="$conf_path/aria2.conf"
+su-exec "$userid":"$groupid" aria2c --conf-path="$conf_path/aria2.conf" "$@"
