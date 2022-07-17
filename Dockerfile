@@ -42,5 +42,4 @@ VOLUME /aria2/conf
 
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/sh"]
-CMD ["./start.sh"]
+ENTRYPOINT ["./start.sh"]
