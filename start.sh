@@ -11,12 +11,13 @@ if [ ! -f $conf_path/aria2.conf ]; then
 fi
 
 if [ -n "$RPC_SECRET" ]; then
-    printf '\nrpc-secret=%s\n' "${RPC_SECRET}" >>$conf_path/aria2.conf
+    sed -i '/^rpc-secret=/d' $conf_path/aria2.conf
+    printf 'rpc-secret=%s\n' "${RPC_SECRET}" >>$conf_path/aria2.conf
 
     if [ -n "$EMBED_RPC_SECRET" ]; then
-        echo "Emdedding RPC secret into ariang Web UI"
-        RPC_SECRET_BASE64=$(echo -n "${RPC_SECRET}" | base64)
-        sed -i 's/secret:\"\"/secret:\"'"${RPC_SECRET_BASE64}"'\"/g' $ariang_js_path
+        echo "Embedding RPC secret into ariang Web UI"
+        RPC_SECRET_BASE64=$(echo -n "${RPC_SECRET}" | base64 -w 0)
+        sed -i 's,secret:"[^"]*",secret:"'"${RPC_SECRET_BASE64}"'",g' $ariang_js_path
     fi
 fi
 
