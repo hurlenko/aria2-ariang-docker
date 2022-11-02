@@ -49,5 +49,5 @@ fi
 chown -R "$userid":"$groupid" $conf_path
 chown -R "$userid":"$groupid" $data_path
 
-caddy run -config /usr/local/caddy/Caddyfile -adapter=caddyfile &
+caddy start -config /usr/local/caddy/Caddyfile -adapter=caddyfile
 su-exec "$userid":"$groupid" aria2c "$@"
