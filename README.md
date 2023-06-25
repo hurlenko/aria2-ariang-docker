@@ -68,7 +68,6 @@ docker run -d \
     -v /CONFIG_DIR:/aria2/conf \
     -e PUID=1000 \
     -e PGID=1000 \
-    -e ARIA2RPCPORT=443 \
     -e RPC_SECRET=NOBODYKNOWSME \
     hurlenko/aria2-ariang
 ```
@@ -92,7 +91,6 @@ services:
       - PUID=1000
       - PGID=1000
       - RPC_SECRET=secret
-      - ARIA2RPCPORT=443
     restart: always
 ```
 
@@ -131,7 +129,6 @@ location / {
 - `EMBED_RPC_SECRET` - INSECURE: embeds `RPC_SECRET` into web ui js code. This allows you to skip entering the secret but everyone who has access to the webui will be able to see it. Only use this with some sort of authentication (e.g. basic auth)
 - `BASIC_AUTH_USERNAME` - username for basic auth
 - `BASIC_AUTH_PASSWORD` - password for basic auth
-- `ARIA2RPCPORT` - The port that will be used for rpc calls to aria2. Usually you want to set it to the port your website is running on. For example if your AriaNg instance is accessible on `https://ariang.mysite.com` you need to set `ARIA2RPCPORT` to `443` (default https port), otherwise AriaNg won't be able to access aria2 rpc running on the default port `8080`. You can set the port in the web ui by going to `AriaNg Settings` > `Rpc` tab > `Aria2 RPC Address` field, and changing the default rpc port to whatever you need, but this has to be done per browser.
 
 > Note, both `BASIC_AUTH_USERNAME` and `BASIC_AUTH_PASSWORD` must be set in order to enable basic authentication.
 
