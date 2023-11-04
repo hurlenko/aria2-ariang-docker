@@ -1,10 +1,26 @@
+FROM alpine:3.16.0 as builder
+
+ARG ARIANG_VERSION=1.3.6
+RUN apk update
+RUN apk add npm git
+RUN npm install -g gulp
+
+ADD https://github.com/mayswind/AriaNg/archive/refs/tags/${ARIANG_VERSION}.zip /ariang.zip
+RUN mkdir -p /ariang
+RUN unzip -x /ariang.zip  -d /ariang
+
+COPY ./patchs /patchs
+
+WORKDIR /ariang/AriaNg-${ARIANG_VERSION}
+RUN git apply /patchs/*.patch
+RUN npm install
+RUN gulp clean build
+
 FROM alpine:3.16.0
 
-ARG ARIANG_VERSION
+ARG ARIANG_VERSION=1.3.6
 ARG BUILD_DATE
 ARG VCS_REF
-
-ENV ARIA2RPCPORT=8080
 
 LABEL maintainer="hurlenko" \
     org.label-schema.build-date=$BUILD_DATE \
@@ -25,11 +41,7 @@ RUN apk update \
 # AriaNG
 WORKDIR /usr/local/www/ariang
 
-RUN wget --no-check-certificate https://github.com/mayswind/AriaNg/releases/download/${ARIANG_VERSION}/AriaNg-${ARIANG_VERSION}.zip \
-    -O ariang.zip \
-    && unzip ariang.zip \
-    && rm ariang.zip \
-    && chmod -R 755 ./
+COPY --from=builder /ariang/AriaNg-${ARIANG_VERSION}/dist ./
 
 WORKDIR /aria2
 
