@@ -32,11 +32,6 @@ fi
 
 touch $conf_path/aria2.session
 
-if [[ -n "$ARIA2RPCPORT" ]]; then
-    echo "Changing rpc request port to $ARIA2RPCPORT"
-    sed -i "s/6800/${ARIA2RPCPORT}/g" $ariang_js_path
-fi
-
 userid="$(id -u)" # 65534 - nobody, 0 - root
 groupid="$(id -g)"
 
