@@ -12,7 +12,7 @@ fi
 
 if [ -n "$RPC_SECRET" ]; then
     sed -i '/^rpc-secret=/d' $conf_path/aria2.conf
-    printf 'rpc-secret=%s\n' "${RPC_SECRET}" >>$conf_path/aria2.conf
+    printf '\nrpc-secret=%s\n' "${RPC_SECRET}" >>$conf_path/aria2.conf
 
     if [ -n "$EMBED_RPC_SECRET" ]; then
         echo "Embedding RPC secret into ariang Web UI"
